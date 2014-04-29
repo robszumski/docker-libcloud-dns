@@ -49,12 +49,13 @@ if exists is False:
   try:
     record = zone.create_record(name=args.record, type=args.type, data=args.value,
       extra=extra)
-    print "Creating record for %s.%s with value %s" % (args.record, args.domain, args.value)
+    print "Created record for %s.%s with value %s" % (args.record, args.domain, args.value)
   except LibcloudError:
     print "Could not create %s.%s" % (args.record, args.domain)
 else:
   try:
     record = [r for r in driver.list_records(zone) if r.name == args.record][0]
     newRecord = driver.update_record(record=record, name=args.record, type=args.type, data=args.value, extra=extra)
+    print "Updated %s.%s to %s" % (args.record, args.domain, args.value)
   except LibcloudError:
-    print "something went wrong"
+    print "Could not create %s.%s" % (args.record, args.domain)
